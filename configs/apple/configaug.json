@@ -1,0 +1,130 @@
+{
+    "name": "DeepLab",
+    "n_gpu": 1,
+    "use_synch_bn": false,
+    "dataset" : "Apple",
+    "data_dir" : "data/apple",
+
+    "arch": {
+        "type": "DeepLab",
+        "args": {
+            "backbone": "resnet50",
+            "freeze_bn": false,
+            "freeze_backbone": false,
+            "drop_conv":0.1
+        }
+    },
+
+    "labeled_loader": {
+        "type": "Apple",
+        "args":{
+            "data_dir": "data/apple",
+            "batch_size": 32,
+            "base_size": 300,
+            "crop_size":true,
+            "crop_h":200,
+            "crop_w":300,
+            "augment": true,
+            "shuffle": true,
+            "scale": true,
+            "flip": true,
+            "rotate": true,
+            "blur": false,
+            "split": "train",
+            "num_workers": 32,
+            "create_dataset_using_txt" : true,
+            "load_from" : "labeled.csv",
+            "num_policies":2,
+            "magnitude":0.5,
+            "prob":0.5,
+            "randaug":false
+        }
+    },
+
+    "unlabeled_loader": {
+        "type": "Apple",
+        "args":{
+            "data_dir": "data/apple",
+            "augment":true,
+            "crop_size":true,
+            "crop_h":200,
+            "crop_w":300,
+            "batch_size": 1,
+            "val": true,
+            "split": "train",
+            "num_workers": 32,
+            "create_dataset_using_txt" : true,
+            "load_from" : "unlabeled.csv",
+            "randaug":false
+        }
+    },
+    "val_loader": {
+        "type": "Apple",
+        "args":{
+            "data_dir": "data/apple",
+            "crop_size":true,
+            "crop_h":200,
+            "crop_w":300,
+            "augment":true,
+            "batch_size": 128,
+            "val": true,
+            "split": "val",
+            "num_workers": 32,
+            "create_dataset_using_txt" : true,
+            "load_from" : "data/apple/val.csv",
+            "randaug":false
+        }
+    },
+    "test_loader": {
+        "type": "Apple",
+        "args":{
+            "data_dir": "data/apple",
+            "crop_size":true,
+            "crop_h":200,
+            "crop_w":300,
+            "augment":true,
+            "batch_size": 128,
+            "val": true,
+            "split": "val",
+            "num_workers": 32,
+            "create_dataset_using_txt" : true,
+            "load_from" : "data/apple/test.csv",
+            "randaug":false
+        }
+    },
+
+    "optimizer": {
+        "type": "Adam",
+        "differential_lr": false,
+        "args":{
+            "lr": 0.0001
+        }
+    },
+
+    "loss": "FocalLoss",
+    "ignore_index": 255,
+    "lr_scheduler": {
+        "type": "Poly",
+        "args": {}
+    },
+
+    "trainer": {
+        "epochs": 50,
+        "original_save_dir": "saved/",
+        "save_period": 1,
+  
+        "monitor": "max Mean_IoU",
+        "early_stop": 1000,
+        
+        "tensorboard": true,
+        "original_log_dir": "saved/runs",
+        "log_per_iter": 20,
+
+        "val": true,
+        "val_per_epochs": 1
+    },
+    "work_dir" :"work_dir",
+    "dropout_iterations":10,
+    "exp_name" : "test1",
+    "seed" : 0
+}

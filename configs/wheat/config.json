@@ -1,0 +1,134 @@
+{
+    "name": "DeepLab",
+    "n_gpu": 1,
+    "use_synch_bn": false,
+    "dataset" : "Wheat",
+    "data_dir" : "data/wheat",
+
+    "arch": {
+        "type": "DeepLab",
+        "args": {
+            "backbone": "resnet50",
+            "freeze_bn": false,
+            "freeze_backbone": false,
+            "drop_conv":0.1
+        }
+    },
+
+    "labeled_loader": {
+        "type": "Wheat",
+        "args":{
+            "data_dir": "data/wheat",
+            "batch_size": 8,
+            "base_size": 512,
+            "crop_size":true,
+            "crop_h":512,
+            "crop_w":400,
+            "augment": false,
+            "shuffle": true,
+            "scale": true,
+            "flip": true,
+            "rotate": true,
+            "blur": false,
+            "split": "train",
+            "num_workers": 32,
+            "create_dataset_using_txt" : true,
+            "load_from" : "labeled.csv",
+            "num_policies":2,
+            "magnitude":0.5,
+            "prob":0.5,
+            "randaug":false,
+            "resize":false
+        }
+    },
+
+    "unlabeled_loader": {
+        "type": "Wheat",
+        "args":{
+            "data_dir": "data/wheat",
+            "augment":true,
+            "crop_size":true,
+            "crop_h":512,
+            "crop_w":400,
+            "batch_size": 1,
+            "val": true,
+            "split": "train",
+            "num_workers": 32,
+            "create_dataset_using_txt" : true,
+            "load_from" : "unlabeled.csv",
+            "randaug":false,
+            "resize":false
+        }
+    },
+    "val_loader": {
+        "type": "Wheat",
+        "args":{
+            "data_dir": "data/wheat",
+            "crop_size":true,
+            "crop_h":512,
+            "crop_w":400,
+            "augment":true,
+            "batch_size": 16,
+            "val": true,
+            "split": "val",
+            "num_workers": 32,
+            "create_dataset_using_txt" : true,
+            "load_from" : "data/wheat/val.csv",
+            "randaug":false,
+            "resize":false
+        }
+    },
+    "test_loader": {
+        "type": "Wheat",
+        "args":{
+            "data_dir": "data/wheat",
+            "crop_size":true,
+            "crop_h":512,
+            "crop_w":400,
+            "augment":true,
+            "batch_size": 16,
+            "val": true,
+            "split": "val",
+            "num_workers": 32,
+            "create_dataset_using_txt" : true,
+            "load_from" : "data/wheat/test.csv",
+            "randaug":false,
+            "resize":false
+        }
+    },
+
+    "optimizer": {
+        "type": "Adam",
+        "differential_lr": false,
+        "args":{
+            "lr": 0.0001
+        }
+    },
+
+    "loss": "FocalLoss",
+    "ignore_index": 255,
+    "lr_scheduler": {
+        "type": "Poly",
+        "args": {}
+    },
+
+    "trainer": {
+        "epochs": 50,
+        "original_save_dir": "saved/",
+        "save_period": 1,
+  
+        "monitor": "max Mean_IoU",
+        "early_stop": 1000,
+        
+        "tensorboard": true,
+        "original_log_dir": "saved/runs",
+        "log_per_iter": 20,
+
+        "val": true,
+        "val_per_epochs": 1
+    },
+    "work_dir" :"work_dir",
+    "dropout_iterations":10,
+    "exp_name" : "trial3",
+    "seed" : 23
+}
