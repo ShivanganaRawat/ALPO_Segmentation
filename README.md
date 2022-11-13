@@ -1,13 +1,16 @@
 # How Useful is Image-Based Active Learning for Plant Organ Segmentation?
 
-This is the official code implementation of our paper which is currently under a journal review.
+This is the official code implementation of our paper:  
+Shivangana Rawat, Akshay L. Chandra, Sai Vikas Desai, Vineeth N. Balasubramanian, Seishi Ninomiya, Wei Guo, "How Useful Is Image-Based Active Learning for Plant Organ Segmentation?", Plant Phenomics, vol. 2022, Article ID 9795275, 11 pages, 2022. https://doi.org/10.34133/2022/9795275
 
 ## Datasets
+You can download the whole dataset (apple, wheat, rice) used in this paper from:  
+[Download link avaible here](https://forms.gle/sJE8T1ShaP5FfAAs7)
 |                 Dataset                |                                  Link                                  |
 |:--------------------------------------:|:----------------------------------------------------------------------:|
-| Apple (ACFR Orchard Fruit Dataset) [1] | [Download](https://data.acfr.usyd.edu.au/ag/treecrops/2016-multifruit) |
-|          UTokyo Wheat 2020 [2]         |                                  Soon                                  |
-|          UTokyo Rice 2013 [3]          |                                  Soon                                  |
+| Apple (ACFR Orchard Fruit Dataset) [1] | [Original](https://data.acfr.usyd.edu.au/ag/treecrops/2016-multifruit) |
+|  Modified UTokyo Wheat 2020 [2]        | [Original](http://www.global-wheat.com/)                               |
+|  Modified UTokyo Rice 2013 [3]         | [Original](https://github.com/svdesai/heading-date-estimation)         |
 
 
 ## Abstract
